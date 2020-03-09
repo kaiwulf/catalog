@@ -14,10 +14,12 @@ public class MyApp : Gtk.Application {
     protected override void activate () {
         var grid = new Gtk.Grid();
         grid.orientation = Gtk.Orientation.VERTICAL;
+        var main_window = new Gtk.ApplicationWindow (this);
 
         grid.add(new Gtk.Label("Label 1"));
         grid.add(new Gtk.Label("Label 2"));
-        var main_window = new Gtk.ApplicationWindow (this);
+
+        main_window.add(grid);
         main_window.default_height = 300;
         main_window.default_width = 300;
         main_window.title = "Hello World";
