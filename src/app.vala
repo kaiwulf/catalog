@@ -1,4 +1,4 @@
-// valac --pkg gtk+-3.0 Application.vala
+// valac --pkg gtk+-3.0 app.vala
 
 using Gtk;
 
@@ -14,20 +14,41 @@ public class MyApp : Gtk.Application {
     protected override void activate () {
 
         var grid = new Gtk.Grid();
-        var button = new Gtk.Button.with_label ("Click me!");
         var main_window = new Gtk.ApplicationWindow (this);
-        var label = new Gtk.Label(null);
+        var layout = new Gtk.Grid();
+
+        var button = new Gtk.Button.with_label ("Click me!");
+        var hello_label = new Gtk.Label(null);
+
+        var rotate_button = new Gtk.Button.with_label("Rotate");
+        var rotate_label = new Gtk.Label("Horitzontal");
+
         grid.orientation = Gtk.Orientation.VERTICAL;
+        layout.row_spacing = 6;
         grid.row_spacing = 6;
 
-        grid.add(button);
-        grid.add(label);
+        layout.attach(button, 0, 0, 1, 1);
+        layout.attach_next_to(hello_label, button, Gtk.PositionType.RIGHT, 1, 1);
 
-        main_window.add (grid);
+        layout.attach(rotate_button, 0, 1, 1, 1);
+        layout.attach_next_to(rotate_label, rotate_button, Gtk.PositionType.RIGHT, 1, 1);
+
+        main_window.add(layout);
+
+        // grid.add(button);
+        // grid.add(label);
+        //
+        // main_window.add (grid);
 
         button.clicked.connect (() => {
             button.label = "Hello World!";
             button.sensitive = false;
+        });
+
+        rotate_button.clicked.connect( () => {
+            rotate_label.angle = 90;
+            rotate_label.label = "Vertical";
+            rotate_label.sensitive = false;
         });
 
         main_window.default_height = 300;
