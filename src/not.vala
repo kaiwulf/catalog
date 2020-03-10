@@ -1,4 +1,4 @@
-// valac --pkg gtk+-3.0 app.vala
+// valac --pkg gtk+-3.0 not.vala
 
 using Gtk;
 
@@ -22,6 +22,12 @@ public class MyApp : Gtk.Application {
 
         grid.add(title_label);
         grid.add(show_button);
+
+        show_button.clicked.connect( () => {
+            var notifications = new Notifications("hello Earth");
+            notifications.set_body("This is my first notifications");
+            this.send_notification("com.github.kaiwulf.catalog", notifications);
+            });
 
         main_window.default_height = 300;
         main_window.default_width = 300;
